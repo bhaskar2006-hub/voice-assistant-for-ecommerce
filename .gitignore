@@ -1,0 +1,12 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment files
+.env
+backend/.env
+
+# Local artifacts
+backend/tts_response.bin

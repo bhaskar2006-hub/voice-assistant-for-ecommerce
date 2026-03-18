@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ShopVoice — Voice Shopping Assistant</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+
+    <header>
+      <div class="header-left">
+        <div class="logo">SV</div>
+        <div>
+          <h1>ShopVoice</h1>
+          <p>Your AI voice shopping assistant</p>
+        </div>
+      </div>
+      <div class="lang-badge" id="langBadge">EN</div>
+    </header>
+
+    <div class="main-layout">
+
+      <div class="left-panel">
+        <div class="chat-window" id="chatWindow"></div>
+
+        <div class="input-area">
+          <div class="status-row">
+            <div class="status-dot" id="statusDot"></div>
+            <div class="status" id="status">Press mic to start</div>
+          </div>
+          <div class="chat-controls">
+            <label class="control-field">
+              Language
+              <select id="languageSelect" onchange="onLanguageChange()">
+                <option value="auto" selected>Auto</option>
+                <option value="en">English</option>
+                <option value="hi">Hindi</option>
+                <option value="te">Telugu</option>
+                <option value="kn">Kannada</option>
+                <option value="mr">Marathi</option>
+              </select>
+            </label>
+            <label class="control-field">
+              Voice
+              <select id="voiceSelect" onchange="onVoiceChange()">
+                <option value="auto" selected>Auto Female (match language)</option>
+                <option value="en-US-natalie|Conversational|en">Natalie Female (English)</option>
+                <option value="hi-IN-shweta|Conversational|hi">Shweta Female (Hindi)</option>
+                <option value="browser|default|te">Female Browser Voice (Telugu)</option>
+                <option value="browser|default|kn">Female Browser Voice (Kannada)</option>
+                <option value="browser|default|mr">Female Browser Voice (Marathi)</option>
+              </select>
+            </label>
+          </div>
+          <button class="mic-btn" id="micBtn" onclick="toggleListening()">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+              <rect x="9" y="2" width="6" height="12" rx="3" fill="currentColor"/>
+              <path d="M5 10a7 7 0 0 0 14 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <line x1="12" y1="17" x2="12" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="8" y1="21" x2="16" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <div class="hint-chips">
+            <span class="chip" onclick="sendText('Gift for mom under ₹1500')">Gift for mom under ₹1500</span>
+            <span class="chip" onclick="sendText('Fitness gear')">Fitness gear</span>
+            <span class="chip" onclick="sendText('Add first one to cart')">Add first one</span>
+            <span class="chip" onclick="sendText('Checkout')">Checkout</span>
+          </div>
+          <div class="text-input-row">
+            <input type="text" id="textInput" placeholder="Type or speak in English / Hindi..." onkeydown="if(event.key==='Enter') sendTextFromInput()" />
+            <button onclick="sendTextFromInput()">Send</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="right-panel">
+        <div class="panel-section">
+          <div class="section-label">Products</div>
+          <div class="products-panel" id="productsPanel">
+            <div class="empty-state">Results will appear here</div>
+          </div>
+        </div>
+
+        <div class="panel-section">
+          <div class="section-label">
+            Cart
+            <span class="cart-count" id="cartCount">0 items</span>
+          </div>
+          <div class="cart-panel" id="cartPanel">
+            <div class="empty-state">Your cart is empty</div>
+          </div>
+          <div class="cart-total" id="cartTotal" style="display:none">
+            <span>Total</span>
+            <span id="cartTotalAmount">₹0</span>
+          </div>
+          <button class="checkout-btn" id="checkoutBtn" onclick="sendText('Checkout')" style="display:none">
+            Checkout by voice or click
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="order-overlay" id="orderOverlay" style="display:none">
+      <div class="order-card">
+        <div class="order-icon">✓</div>
+        <h2>Order Placed!</h2>
+        <p id="orderMsg"></p>
+        <button onclick="resetOrder()">Continue Shopping</button>
+      </div>
+    </div>
+
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
